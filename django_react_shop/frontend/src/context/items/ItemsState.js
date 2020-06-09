@@ -29,7 +29,7 @@ export const ItemsState = ({ children }) => {
     const fetchItems = async bool => {
         setLoading()
         try {
-            const response = await axios.get(`api/0/${state.currentPage}/${state.pageSize}`)
+            const response = await axios.get(`http://localhost:8000/api/0/${state.currentPage}/${state.pageSize}/`)
             fetchItemsSuccess(response.data)
             if (bool) {
                 setTotalCount(10)
@@ -42,7 +42,7 @@ export const ItemsState = ({ children }) => {
     const fetchItemById = async id => {
         setLoading()
         try {
-            const response = await axios.get(`api/id/${id}`)
+            const response = await axios.get(`http://localhost:8000/items/api/id/${id}/`)
             fetchItemByIdSuccess(response.data)
         } catch (e) {
             fetchError(e)

@@ -13,7 +13,7 @@ export const BasketCart = () => {
 
     return (
         <Fragment>
-            <h3>Корзина {currentUser !== null ? currentUser.displayName : null  }</h3>
+            <h3>Корзина{currentUser !== null ? currentUser.displayName : null  }</h3>
             <Link to="/basket" className="btn btn-lg btn-block btn-outline-primary">
                 {basket.length} товаров - {R.sum(basket)}&nbsp;₽
             </Link>
