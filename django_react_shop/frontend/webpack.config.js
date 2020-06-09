@@ -10,14 +10,20 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: 'main.js',
-    path: path.resolve(__dirname, './static/frontend')
+    path: path.resolve(__dirname, './static/frontend'),
+    publicPath: '/',
   },
   performance: {
     hints: false
   },
   devtool: isDev ? 'source-map' : '',
+  devServer: {
+    port: 8080,
+    historyApiFallback: true
+  },
   plugins: [
     new HtmlWebpackPlugin({
+      template: "./src/index.html",
       minify: {
         collapseWhitespace: isProd
       }
