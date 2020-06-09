@@ -9,7 +9,7 @@ export function Body() {
                 <div className="ro">
                     <h2>
                         <div className="line">
-                            <span>Вдохновляющий текст</span>
+                            <span>Вдохновляющий текст опа</span>
                         </div>
                         <div className="line">
                             <span>Красивая поднадпись</span>
