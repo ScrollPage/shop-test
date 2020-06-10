@@ -42,7 +42,7 @@ export const Items = () => {
                 pageSize={pageSize}
                 currentPage={currentPage}
                 pageChanged={pageChanged}
-                portionSize={3}
+                portionSize={4}
             />
 
             <div className="card-group row">

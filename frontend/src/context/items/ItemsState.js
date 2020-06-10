@@ -17,7 +17,7 @@ export const ItemsState = ({ children }) => {
     const initialState = {
         items: [],
         item: null,
-        pageSize: 3,
+        pageSize: 9,
         currentPage: 1,
         totalItemsCount: 0,
         loading: false,
@@ -32,8 +32,9 @@ export const ItemsState = ({ children }) => {
             const response = await axios.get(`http://localhost:8000/api/0/${state.currentPage}/${state.pageSize}/`)
             fetchItemsSuccess(response.data)
             if (bool) {
-                
-                setTotalCount(10)
+                const length = await axios.get(`http://localhost:8000/api/len/`)
+                console.log(length.data[0].total)
+                setTotalCount(length.data[0].total)
             }
 
         } catch (e) {
