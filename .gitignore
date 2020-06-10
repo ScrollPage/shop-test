@@ -24,8 +24,12 @@ yarn-debug.log*
 yarn-error.log*
 
 # Byte-compiled / optimized / DLL files
-__pycache__\
+./././__ pycache __/
+././__ pycache __/
+../__pycache__
 *.py[cod]
+./__ pycache __/
+__ pycache __/
 *$py.class
 
 # C extensions

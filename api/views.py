@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
-from api.serializers import ProductSerializer
-from api.models import Product
+from api.serializers import ProductSerializer, CountSerializer
+from api.models import Product, ProductCount
 
 def f(page, amount, queryset):
 	i = 0
@@ -58,5 +58,12 @@ class SingleProductView(generics.ListAPIView):
 
 		queryset = Product.objects.filter(id = uid).all()
 
+		return queryset
+
+class ProductsCountView(generics.ListAPIView):
+	serializer_class = CountSerializer
+
+	def get_queryset(self):
+		queryset = ProductCount.objects.all()
 		return queryset
 # Create your views here.
