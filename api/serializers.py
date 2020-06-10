@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from api.models import Product
+from api.models import Product, ProductCount
 
 class ProductSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -17,5 +17,12 @@ class ProductSerializer(serializers.ModelSerializer):
 			'weight', 
 			'display', 
 			'battery', 
-			'memory'
+			'memory',
+		]
+
+class CountSerializer(serializers.ModelSerializer):
+	class Meta():
+		model = ProductCount
+		fields = [
+			"total",
 		]
