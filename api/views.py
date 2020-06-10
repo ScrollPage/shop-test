@@ -20,6 +20,7 @@ class ProductListView(generics.ListAPIView):
 		page = self.kwargs["page"]
 		amount = self.kwargs["amount"]
 		categoryId = self.kwargs["categoryId"]
+		print(self.request.auth)
 
 		try:
 			page = int(page) - 1
@@ -50,7 +51,6 @@ class SingleProductView(generics.ListAPIView):
 
 	def get_queryset(self):
 		uid = self.kwargs["uid"]
-		print(uid)
 		try:
 			uid = int(uid)
 		except:
