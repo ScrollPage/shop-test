@@ -32,6 +32,7 @@ export const ItemsState = ({ children }) => {
             const response = await axios.get(`http://localhost:8000/api/0/${state.currentPage}/${state.pageSize}/`)
             fetchItemsSuccess(response.data)
             if (bool) {
+                
                 setTotalCount(10)
             }
 
