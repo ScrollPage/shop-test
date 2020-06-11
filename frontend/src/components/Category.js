@@ -11,7 +11,7 @@ export const Category = () => {
 
     const plainOptions = ['Apple', 'Samsung', 'HTC', 'Lenovo', 'Nokia'];
     const [indeterminate, setIndeterminate] = useState(false)
-    const [checkAll, setCheckAll] = useState(checkedList === null || checkedList.length === 0 ? false : true)
+    const [checkAll, setCheckAll] = useState(checkedList.length === plainOptions.length ? true : false)
 
     const onChange = (e) => {
         setCheckedList(e)
@@ -26,8 +26,9 @@ export const Category = () => {
     }
 
     useEffect(() => {
-        store.set('checkedList', checkedList)
         fetchItems()
+        store.set('checkedList', checkedList)
+        console.log(checkedList)
         // eslint-disable-next-line
     }, [checkedList])
 

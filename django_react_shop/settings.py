@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'frontend',
     'corsheaders',
     'debug_toolbar',
+    'account.apps.AccountConfig'
 ]
 
 MIDDLEWARE = [

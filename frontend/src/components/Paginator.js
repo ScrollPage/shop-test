@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { ItemsContext } from '../context/items/ItemsContext'
+import store from 'store'
 
 export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
 
@@ -11,8 +12,8 @@ export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
     }
 
     useEffect(() => {
-        window.localStorage.setItem('currentPage', currentPage);
         fetchItems()
+        store.set('currentPage', currentPage);
         // eslint-disable-next-line
     }, [currentPage]) 
 

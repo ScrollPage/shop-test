@@ -20,11 +20,11 @@ export const ItemsState = ({ children }) => {
         items: [],
         item: null,
         pageSize: 9,
-        currentPage: isNaN(window.localStorage.getItem('currentPage')) ? 1 : parseInt(window.localStorage.getItem('currentPage')),
+        currentPage: store.get('currentPage') === undefined ? 1 : store.get('currentPage'),
         totalItemsCount: 0,
         loading: false,
         error: null,
-        checkedList: store.get('checkedList') === null ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList')
+        checkedList: store.get('checkedList') === undefined ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList')
         }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
