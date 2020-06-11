@@ -5,7 +5,7 @@ import store from 'store'
 
 export const Category = () => {
 
-    const { checkedList, setCheckedList, fetchItems } = useContext(ItemsContext)
+    const { checkedList, setCheckedList, fetchItems, setCurrentPage } = useContext(ItemsContext)
 
     const CheckboxGroup = Checkbox.Group;
 
@@ -17,18 +17,19 @@ export const Category = () => {
         setCheckedList(e)
         setIndeterminate(!!e.length && e.length < plainOptions.length)
         setCheckAll(e.length === plainOptions.length)
+        setCurrentPage(1) 
     }
 
     const onCheckAllChange = (e) => {
         setCheckedList(e.target.checked ? plainOptions : [])
         setIndeterminate(false)
         setCheckAll(e.target.checked)
+        setCurrentPage(1)
     }
 
     useEffect(() => {
-        fetchItems()
+        fetchItems(true)
         store.set('checkedList', checkedList)
-        console.log(checkedList)
         // eslint-disable-next-line
     }, [checkedList])
 

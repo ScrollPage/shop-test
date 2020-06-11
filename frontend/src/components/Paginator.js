@@ -12,9 +12,11 @@ export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
     }
 
     useEffect(() => {
-        fetchItems()
+        fetchItems(false)
         store.set('currentPage', currentPage);
-        // eslint-disable-next-line
+        setPortionNumber(Math.ceil(currentPage / portionSize))
+        console.log(currentPage)
+        console.log(totalItemsCount)
     }, [currentPage]) 
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
@@ -49,8 +51,6 @@ export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
         </div>
     )
 }
-
-// export const Paginator = React.memo(PaginatorMemo)
 
 Paginator.propTypes = {
     totalItemsCount: PropTypes.number,
