@@ -1,10 +1,11 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Checkbox } from 'antd';
 import { ItemsContext } from '../context/items/ItemsContext'
+import store from 'store'
 
 export const Category = () => {
 
-    const { checkedList, setCheckedList } = useContext(ItemsContext)
+    const { checkedList, setCheckedList, fetchItems } = useContext(ItemsContext)
 
     const CheckboxGroup = Checkbox.Group;
 
@@ -23,6 +24,12 @@ export const Category = () => {
         setIndeterminate(false)
         setCheckAll(e.target.checked)
     }
+
+    useEffect(() => {
+        store.set('checkedList', checkedList)
+        fetchItems()
+        // eslint-disable-next-line
+    }, [checkedList])
 
     return (
         <div className="category mt-3">

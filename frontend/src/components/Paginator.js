@@ -1,7 +1,20 @@
-import React, { useState} from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
+import { ItemsContext } from '../context/items/ItemsContext'
 
-export const Paginator = ({ totalItemsCount, pageSize, currentPage, pageChanged, portionSize }) => {
+export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
+
+    const { currentPage, fetchItems, setCurrentPage } = useContext(ItemsContext)
+
+    const pageChanged = (index) => {
+        setCurrentPage(index)
+    }
+
+    useEffect(() => {
+        window.localStorage.setItem('currentPage', currentPage);
+        fetchItems()
+        // eslint-disable-next-line
+    }, [currentPage]) 
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize)
 
@@ -35,6 +48,8 @@ export const Paginator = ({ totalItemsCount, pageSize, currentPage, pageChanged,
         </div>
     )
 }
+
+// export const Paginator = React.memo(PaginatorMemo)
 
 Paginator.propTypes = {
     totalItemsCount: PropTypes.number,

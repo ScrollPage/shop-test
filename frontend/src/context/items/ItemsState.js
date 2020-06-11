@@ -41,6 +41,7 @@ export const ItemsState = ({ children }) => {
                 fl = false
             }
             const response = await axios.get(url)
+
             if (fl) {fetchItemsSuccess(response.data)} else fetchItemsSuccess([])
             const length = await axios.get(urlLen)
             setTotalCount(length.data[0].total)
