@@ -8,6 +8,7 @@ class Account(AbstractBaseUser):
     last_login = models.DateTimeField(verbose_name = "last_login", auto_now = True)
     is_admin = models.BooleanField(default = False)
     avatar = models.ImageField(upload_to="user_avatars/%Y/%m/%d", blank=True)
+    is_active = models.BooleanField(default = False)
 
     def get_url(self):
         try:
