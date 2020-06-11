@@ -56,8 +56,15 @@ class ProductsCountView(generics.ListAPIView):
 	def get_queryset(self):
 		categoryId = self.kwargs["categoryId"]
 		categoryId = categoryId.split(",")
+		
 		if len(categoryId) == 5:
 			queryset = ProductCount.objects.all()
+		elif categoryId[0] == "null":
+			queryset = [
+				{
+					"total": 0,
+				}
+			]
 		else:
 			queryset1 = transform_cat(categoryId)
 			queryset = [
