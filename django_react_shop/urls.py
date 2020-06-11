@@ -26,7 +26,7 @@ urlpatterns = [
     path("api/<categoryId>/<page>/<amount>/", views.ProductListView.as_view(), name="api_post_list"),
     path('', include('frontend.urls')),
     path("items/api/id/<uid>/", views.SingleProductView.as_view(), name = "single_product_view"),
-    path("api/len/", views.ProductsCountView.as_view(), name = "products_count_view")
+    path("api/len/<categoryId>/", views.ProductsCountView.as_view(), name = "products_count_view")
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

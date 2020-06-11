@@ -2,26 +2,8 @@ from django.shortcuts import render
 from rest_framework import generics
 from api.serializers import ProductSerializer, CountSerializer
 from api.models import Product, ProductCount
-
-class Categories():
-	def __init__(self, name):
-		if name == "Apple":
-			self.cat = 1
-		elif name == "Samsung":
-			self.cat = 2
-		elif name == "HTC":
-			self.cat = 3
-		elif name == "Lenovo":
-			self.cat = 4
-		else:
-			self.cat = 5
-
-def f(page, amount, queryset):
-	i = 0
-	while int(page) != i:
-		i += 1
-
-	return queryset[amount*i : amount*(i + 1)]
+from api.help_classes import Categories
+from api.help_funcs import f, transform_cat
 
 class ProductListView(generics.ListAPIView):
 	serializer_class = ProductSerializer
@@ -40,20 +22,10 @@ class ProductListView(generics.ListAPIView):
 		except:
 			amount = 6
 
-		categoryId = categoryId[1:-1]
-		
-		if len(categoryId):
-			categoryId = categoryId.split(",")
-			for i in range(len(categoryId)):
-				categoryId[i] = categoryId[i][1:-1]
-			new_category_arr = []
-			for cat in categoryId:
-				new_category_arr.append(Categories(cat).cat)
-			queryset = Product.objects.all()
-			queryset1 = []
-			for product in queryset:
-				if product.categoryId in new_category_arr:
-					queryset1.append(product)
+		categoryId = categoryId.split(",")
+
+		if len(categoryId) != 5:
+			queryset1 = transform_cat(categoryId)
 			queryset = f(page, amount, queryset1)
 		else:
 			queryset = Product.objects.all()
@@ -81,6 +53,17 @@ class ProductsCountView(generics.ListAPIView):
 	serializer_class = CountSerializer
 
 	def get_queryset(self):
-		queryset = ProductCount.objects.all()
+		categoryId = self.kwargs["categoryId"]
+		categoryId = categoryId.split(",")
+		if len(categoryId) == 5:
+			queryset = ProductCount.objects.all()
+		else:
+			queryset1 = transform_cat(categoryId)
+			queryset = [
+				{
+					"total": len(queryset1),
+				}
+			]
+
 		return queryset
 
