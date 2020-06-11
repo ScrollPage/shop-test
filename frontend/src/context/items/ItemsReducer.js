@@ -4,7 +4,8 @@ import {
     FETCH_ERROR,
     SET_CURRENT_PAGE,
     SET_TOTAL_COUNT,
-    FETCH_ITEM_BY_ID_SUCCESS
+    FETCH_ITEM_BY_ID_SUCCESS,
+    SET_CHECKED_LIST
 } from '../types'
 
 const handlers = {
@@ -14,6 +15,7 @@ const handlers = {
     [FETCH_ERROR]: (state, {payload}) => ({...state, error: payload, loading: false}),
     [SET_CURRENT_PAGE]: (state, {payload}) => ({...state, currentPage: payload}),
     [SET_TOTAL_COUNT]: (state, {payload}) => ({...state, totalItemsCount: payload}),
+    [SET_CHECKED_LIST]: (state, {payload}) => ({...state, checkedList: payload}),
     DEFAULT: state => state
 } 
 
