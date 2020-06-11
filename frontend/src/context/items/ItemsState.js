@@ -29,7 +29,7 @@ export const ItemsState = ({ children }) => {
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
 
-    const fetchItems = async (bool) => {
+    const fetchItems = async () => {
         setLoading()
         try {
             let fl = true
@@ -43,10 +43,8 @@ export const ItemsState = ({ children }) => {
             const response = await axios.get(url)
 
             if (fl) {fetchItemsSuccess(response.data)} else fetchItemsSuccess([])
-            if (bool) {
-                const length = await axios.get(urlLen)
-                setTotalCount(length.data[0].total)
-            }
+            const length = await axios.get(urlLen)
+            setTotalCount(length.data[0].total)
 
         } catch (e) {
             fetchError(e)

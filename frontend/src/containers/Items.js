@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-
+import React, { useContext, useEffect } from 'react'
+import store from 'store'
 import { Loader } from '../components/Loader'
 import { Paginator } from '../components/Paginator'
 import { Card } from '../components/Card'
@@ -9,8 +9,15 @@ import { BasketContext } from '../context/basket/BasketContext'
 
 export const Items = () => {
 
-    const { items, totalItemsCount, pageSize, loading } = useContext(ItemsContext)
+    const { items, totalItemsCount, pageSize, loading, fetchItems, checkedList, currentPage } = useContext(ItemsContext)
     const { addItemToBasket } = useContext(BasketContext)
+
+    useEffect(() => {
+        fetchItems()
+        store.set('checkedList', checkedList)
+        store.set('currentPage', currentPage)
+        // eslint-disable-next-line
+    }, [checkedList, currentPage])
 
     const renderCards = () => {
         return items.map((item, index) => {

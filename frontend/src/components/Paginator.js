@@ -1,19 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { ItemsContext } from '../context/items/ItemsContext'
-import store from 'store'
 
 export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
 
-    const { currentPage, fetchItems, setCurrentPage } = useContext(ItemsContext)
+    const { currentPage, setCurrentPage } = useContext(ItemsContext)
 
     const pageChanged = (index) => {
         setCurrentPage(index)
     }
 
     useEffect(() => {
-        fetchItems(false)
-        store.set('currentPage', currentPage);
         setPortionNumber(Math.ceil(currentPage / portionSize))
     }, [currentPage]) 
 
