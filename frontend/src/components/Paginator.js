@@ -15,8 +15,6 @@ export const Paginator = ({ totalItemsCount, pageSize, portionSize }) => {
         fetchItems(false)
         store.set('currentPage', currentPage);
         setPortionNumber(Math.ceil(currentPage / portionSize))
-        console.log(currentPage)
-        console.log(totalItemsCount)
     }, [currentPage]) 
 
     let pagesCount = Math.ceil(totalItemsCount / pageSize)

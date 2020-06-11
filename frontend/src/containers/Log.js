@@ -47,7 +47,7 @@ export const Log = () => {
                 .login(values.email, values.password)
                 .catch(e => {
                     show('Пользователя с введенными данными не существует!', 'danger')
-                    console.log('Log error: ',e)
+                    console.log('Log error: ', e)
                 })
             setSubmitting(true)
             setTimeout(() => {
