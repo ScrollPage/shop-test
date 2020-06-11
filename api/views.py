@@ -40,8 +40,9 @@ class ProductListView(generics.ListAPIView):
 		except:
 			amount = 6
 
+		categoryId = categoryId[1:-1]
+		
 		if len(categoryId):
-			categoryId = categoryId[1:-1]
 			categoryId = categoryId.split(",")
 			for i in range(len(categoryId)):
 				categoryId[i] = categoryId[i][1:-1]
