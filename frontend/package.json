@@ -65,6 +65,7 @@
     "rambda": "^5.6.1",
     "ramda": "^0.27.0",
     "react-router-dom": "^5.2.0",
+    "store": "^2.0.12",
     "use-react-router": "^1.0.7",
     "yup": "^0.29.1"
   }

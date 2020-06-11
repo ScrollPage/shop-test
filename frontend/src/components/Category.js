@@ -1,19 +1,19 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Checkbox } from 'antd';
 import { ItemsContext } from '../context/items/ItemsContext'
+import store from 'store'
 
 export const Category = () => {
 
-    const { checkedList, setCheckedList } = useContext(ItemsContext)
+    const { checkedList, setCheckedList, fetchItems } = useContext(ItemsContext)
 
     const CheckboxGroup = Checkbox.Group;
 
     const plainOptions = ['Apple', 'Samsung', 'HTC', 'Lenovo', 'Nokia'];
     const [indeterminate, setIndeterminate] = useState(false)
-    const [checkAll, setCheckAll] = useState(true)
+    const [checkAll, setCheckAll] = useState(checkedList === null || checkedList.length === 0 ? false : true)
 
     const onChange = (e) => {
-        console.log(e)
         setCheckedList(e)
         setIndeterminate(!!e.length && e.length < plainOptions.length)
         setCheckAll(e.length === plainOptions.length)
@@ -25,9 +25,16 @@ export const Category = () => {
         setCheckAll(e.target.checked)
     }
 
+    useEffect(() => {
+        store.set('checkedList', checkedList)
+        fetchItems()
+        // eslint-disable-next-line
+    }, [checkedList])
+
     return (
         <div className="category mt-3">
-            <h1>Категории</h1>
+            <h3>Категории</h3>
+            <hr />
             <div>
                 <div className="site-checkbox-all-wrapper">
                     <Checkbox
@@ -36,9 +43,9 @@ export const Category = () => {
                         checked={checkAll}
                     >
                         All
-          </Checkbox>
+                    </Checkbox>
                 </div>
-                <br />
+                <hr />
                 <CheckboxGroup
                     options={plainOptions}
                     value={checkedList}

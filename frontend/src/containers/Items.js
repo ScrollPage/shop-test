@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 
 import { Loader } from '../components/Loader'
 import { Paginator } from '../components/Paginator'
@@ -9,18 +9,8 @@ import { BasketContext } from '../context/basket/BasketContext'
 
 export const Items = () => {
 
-    const { fetchItems, setCurrentPage, items, totalItemsCount, pageSize, currentPage, loading, checkedList } = useContext(ItemsContext)
+    const { items, totalItemsCount, pageSize, loading } = useContext(ItemsContext)
     const { addItemToBasket } = useContext(BasketContext)
-
-    useEffect(() => {
-        fetchItems()
-        // eslint-disable-next-line
-    }, [currentPage, checkedList])
-
-
-    const pageChanged = (index) => {
-        setCurrentPage(index)
-    }
 
     const renderCards = () => {
         return items.map((item, index) => {
@@ -40,16 +30,17 @@ export const Items = () => {
             <Paginator
                 totalItemsCount={totalItemsCount}
                 pageSize={pageSize}
-                currentPage={currentPage}
-                pageChanged={pageChanged}
+                // currentPage={currentPage}
+                // pageChanged={pageChanged}
                 portionSize={4}
             />
-
             <div className="card-group row">
                 {
-                    loading || items.length === 0
+                    loading
                         ? <Loader />
-                        : renderCards()
+                        : items.length === 0 
+                            ? <p>Нет товаров по выбранным категориям</p>
+                            : renderCards()
                 }
             </div>
         </Layout>
