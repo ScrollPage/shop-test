@@ -5,11 +5,8 @@ from api.models import Product, ProductCount
 
 def f(page, amount, queryset):
 	i = 0
-	print(page)
 	while int(page) != i:
 		i += 1
-
-	print(i)
 
 	return queryset[amount*i : amount*(i + 1)]
 
@@ -20,7 +17,6 @@ class ProductListView(generics.ListAPIView):
 		page = self.kwargs["page"]
 		amount = self.kwargs["amount"]
 		categoryId = self.kwargs["categoryId"]
-		print(self.request.auth)
 
 		try:
 			page = int(page) - 1
@@ -31,17 +27,21 @@ class ProductListView(generics.ListAPIView):
 		except:
 			amount = 6
 		try:
-			categoryId = int(categoryId)
+			if int(categoryId) == 0:
+				categoryId = 0
 		except:
 			categoryId = 0
-
 
 		if categoryId == 0:
 			queryset = Product.objects.all()
 			queryset = f(page, amount, queryset)
 		else:
-			queryset = Product.objects.filter(categoryId = categoryId).all()
-			queryset = f(page, amount, queryset)
+			queryset = Product.objects.all()
+			queryset1 = []
+			for product in queryset:
+				if str(product.categoryId) in categoryId:
+					queryset1.append(product)
+			queryset = f(page, amount, queryset1)
 
 		return queryset
 
@@ -66,4 +66,4 @@ class ProductsCountView(generics.ListAPIView):
 	def get_queryset(self):
 		queryset = ProductCount.objects.all()
 		return queryset
-# Create your views here.
+
