@@ -10,7 +10,8 @@ import {
     FETCH_ERROR,
     SET_CURRENT_PAGE,
     SET_TOTAL_COUNT,
-    FETCH_ITEM_BY_ID_SUCCESS
+    FETCH_ITEM_BY_ID_SUCCESS,
+    SET_CHECKED_LIST
 } from '../types'
 
 export const ItemsState = ({ children }) => {
@@ -21,7 +22,8 @@ export const ItemsState = ({ children }) => {
         currentPage: 1,
         totalItemsCount: 0,
         loading: false,
-        error: null
+        error: null,
+        checkedList: ['Apple','Sumsung','HTC','Lenovo','Nokia']
     }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
@@ -63,7 +65,9 @@ export const ItemsState = ({ children }) => {
 
     const setTotalCount = (totalItemsCount) => dispatch({ type: SET_TOTAL_COUNT, payload: totalItemsCount })
 
-    const { items, item, pageSize, currentPage, totalItemsCount, loading } = state
+    const setCheckedList = (checkedList) => dispatch({type: SET_CHECKED_LIST, payload: checkedList})
+
+    const { items, item, pageSize, currentPage, totalItemsCount, loading, checkedList } = state
 
     return (
         <ItemsContext.Provider value={{
@@ -71,7 +75,8 @@ export const ItemsState = ({ children }) => {
             fetchItemById,
             setCurrentPage,
             setTotalCount,
-            items, item, pageSize, currentPage, totalItemsCount, loading
+            setCheckedList,
+            items, item, pageSize, currentPage, totalItemsCount, loading, checkedList
         }}>
             {children}
         </ItemsContext.Provider>
