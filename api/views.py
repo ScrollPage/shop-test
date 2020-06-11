@@ -3,6 +3,19 @@ from rest_framework import generics
 from api.serializers import ProductSerializer, CountSerializer
 from api.models import Product, ProductCount
 
+class Categories():
+	def __init__(self, name):
+		if name == "Apple":
+			self.cat = 1
+		elif name == "Samsung":
+			self.cat = 2
+		elif name == "HTC":
+			self.cat = 3
+		elif name == "Lenovo":
+			self.cat = 4
+		else:
+			self.cat = 5
+
 def f(page, amount, queryset):
 	i = 0
 	while int(page) != i:
@@ -26,22 +39,25 @@ class ProductListView(generics.ListAPIView):
 			amount = int(amount)
 		except:
 			amount = 6
-		try:
-			if int(categoryId) == 0:
-				categoryId = 0
-		except:
-			categoryId = 0
 
-		if categoryId == 0:
-			queryset = Product.objects.all()
-			queryset = f(page, amount, queryset)
-		else:
+		if len(categoryId):
+			categoryId = categoryId[1:-1]
+			categoryId = categoryId.split(",")
+			for i in range(len(categoryId)):
+				categoryId[i] = categoryId[i][1:-1]
+			new_category_arr = []
+			for cat in categoryId:
+				new_category_arr.append(Categories(cat).cat)
 			queryset = Product.objects.all()
 			queryset1 = []
 			for product in queryset:
-				if str(product.categoryId) in categoryId:
+				if product.categoryId in new_category_arr:
 					queryset1.append(product)
 			queryset = f(page, amount, queryset1)
+		else:
+			queryset = Product.objects.all()
+			queryset = f(page, amount, queryset)
+
 
 		return queryset
 
