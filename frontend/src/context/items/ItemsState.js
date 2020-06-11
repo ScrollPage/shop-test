@@ -31,9 +31,15 @@ export const ItemsState = ({ children }) => {
     const fetchItems = async () => {
         setLoading()
         try {
-            const response = await axios.get(`http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/`)
+            let response = await axios.get(`http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/`)
+            // if (state.checkedList.length() === 0) {
+                // response = await axios.get(`http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/`)    
+            // }
             fetchItemsSuccess(response.data)
-            const length = await axios.get(`http://localhost:8000/api/len/`)
+            const length = await axios.get(`http://localhost:8000/api/len/${state.checkedList}/`)
+            console.log(length.data[0])
+            console.log(state.currentPage)
+
             setTotalCount(length.data[0].total)
 
         } catch (e) {
