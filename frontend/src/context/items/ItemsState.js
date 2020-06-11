@@ -23,21 +23,18 @@ export const ItemsState = ({ children }) => {
         totalItemsCount: 0,
         loading: false,
         error: null,
-        checkedList: ['Apple','Sumsung','HTC','Lenovo','Nokia']
+        checkedList: ['Apple','Samsung','HTC','Lenovo','Nokia']
     }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
 
-    const fetchItems = async bool => {
+    const fetchItems = async () => {
         setLoading()
         try {
-            const response = await axios.get(`http://localhost:8000/api/0/${state.currentPage}/${state.pageSize}/`)
+            const response = await axios.get(`http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/`)
             fetchItemsSuccess(response.data)
-            if (bool) {
-                const length = await axios.get(`http://localhost:8000/api/len/`)
-                console.log(length.data[0].total)
-                setTotalCount(length.data[0].total)
-            }
+            const length = await axios.get(`http://localhost:8000/api/len/`)
+            setTotalCount(length.data[0].total)
 
         } catch (e) {
             fetchError(e)
