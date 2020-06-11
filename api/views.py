@@ -24,13 +24,14 @@ class ProductListView(generics.ListAPIView):
 
 		categoryId = categoryId.split(",")
 
-		if len(categoryId) != 5:
-			queryset1 = transform_cat(categoryId)
-			queryset = f(page, amount, queryset1)
-		else:
+		if len(categoryId) == 5:
 			queryset = Product.objects.all()
 			queryset = f(page, amount, queryset)
-
+		elif categoryId[0] == "null":
+			queryset = []
+		else:
+			queryset1 = transform_cat(categoryId)
+			queryset = f(page, amount, queryset1)
 
 		return queryset
 
