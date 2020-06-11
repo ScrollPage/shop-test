@@ -10,10 +10,9 @@ export const Category = () => {
 
     const plainOptions = ['Apple', 'Samsung', 'HTC', 'Lenovo', 'Nokia'];
     const [indeterminate, setIndeterminate] = useState(false)
-    const [checkAll, setCheckAll] = useState(true)
+    const [checkAll, setCheckAll] = useState(checkedList === null || checkedList.length === 0 ? false : true)
 
     const onChange = (e) => {
-        console.log(e)
         setCheckedList(e)
         setIndeterminate(!!e.length && e.length < plainOptions.length)
         setCheckAll(e.length === plainOptions.length)
@@ -27,7 +26,8 @@ export const Category = () => {
 
     return (
         <div className="category mt-3">
-            <h1>Категории</h1>
+            <h3>Категории</h3>
+            <hr />
             <div>
                 <div className="site-checkbox-all-wrapper">
                     <Checkbox
@@ -36,9 +36,9 @@ export const Category = () => {
                         checked={checkAll}
                     >
                         All
-          </Checkbox>
+                    </Checkbox>
                 </div>
-                <br />
+                <hr />
                 <CheckboxGroup
                     options={plainOptions}
                     value={checkedList}

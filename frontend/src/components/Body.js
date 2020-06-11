@@ -7,6 +7,7 @@ export function Body() {
        <section className="body">
             <div className="cont">
                 <div className="ro">
+                    
                     <h2>
                         <div className="line">
                             <span>Вдохновляющий текст</span>

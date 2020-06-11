@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react'
+import store from 'store'
 
 import { Loader } from '../components/Loader'
 import { Paginator } from '../components/Paginator'
@@ -13,6 +14,9 @@ export const Items = () => {
     const { addItemToBasket } = useContext(BasketContext)
 
     useEffect(() => {
+        window.localStorage.setItem('currentPage', currentPage);
+        // window.localStorage.setItem(checkedList, JSON.stringify(checkedList));
+        store.set('checkedList', checkedList)
         fetchItems()
         // eslint-disable-next-line
     }, [currentPage, checkedList])
@@ -44,12 +48,13 @@ export const Items = () => {
                 pageChanged={pageChanged}
                 portionSize={4}
             />
-
             <div className="card-group row">
                 {
-                    loading || items.length === 0
+                    loading
                         ? <Loader />
-                        : renderCards()
+                        : items.length === 0 
+                            ? <p>Нет товаров по выбранным категориям</p>
+                            : renderCards()
                 }
             </div>
         </Layout>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import axios from 'axios'
 import { ItemsContext } from './ItemsContext'
 import { ItemsReducer } from './ItemsReducer'
+import store from 'store'
 
 import {
     SET_LOADING,
@@ -19,27 +20,29 @@ export const ItemsState = ({ children }) => {
         items: [],
         item: null,
         pageSize: 9,
-        currentPage: 1,
+        currentPage: isNaN(window.localStorage.getItem('currentPage')) ? 1 : parseInt(window.localStorage.getItem('currentPage')),
         totalItemsCount: 0,
         loading: false,
         error: null,
-        checkedList: ['Apple','Samsung','HTC','Lenovo','Nokia']
-    }
+        checkedList: store.get('checkedList') === null ? ['Apple','Samsung','HTC','Lenovo','Nokia'] : store.get('checkedList')
+        }
 
     const [state, dispatch] = useReducer(ItemsReducer, initialState)
 
     const fetchItems = async () => {
         setLoading()
         try {
-            let response = await axios.get(`http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/`)
-            // if (state.checkedList.length() === 0) {
-                // response = await axios.get(`http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/`)    
-            // }
-            fetchItemsSuccess(response.data)
-            const length = await axios.get(`http://localhost:8000/api/len/${state.checkedList}/`)
-            console.log(length.data[0])
-            console.log(state.currentPage)
-
+            let fl = true
+            let url = `http://localhost:8000/api/${state.checkedList}/${state.currentPage}/${state.pageSize}/`
+            let urlLen = `http://localhost:8000/api/len/${state.checkedList}/`
+            if (state.checkedList.length === 0) {
+                url = `http://localhost:8000/api/null/${state.currentPage}/${state.pageSize}/`
+                urlLen = `http://localhost:8000/api/len/null/`
+                fl = false
+            }
+            const response = await axios.get(url)
+            if (fl) {fetchItemsSuccess(response.data)} else fetchItemsSuccess([])
+            const length = await axios.get(urlLen)
             setTotalCount(length.data[0].total)
 
         } catch (e) {
