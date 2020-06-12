@@ -1,14 +1,16 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import useReactRouter from 'use-react-router'
 import { motion } from 'framer-motion'
-
-import firebase from '../config/firebase'
+import axios from 'axios'
+// import CSRFToken from '../hoc/csrftoken'
 import { Form, Input, Button } from 'antd'
-import { AlertContext } from '../context/alert/AlertContext'
+// import { AlertContext } from '../context/alert/AlertContext'
+
+// import setGlobalCSRF from 'helpers/setGlobalCSRF';
 
 const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -43,7 +45,7 @@ const errorMessege = (touched, messege) => {
 export const Reg = () => {
 
     const { history } = useReactRouter()
-    const { show } = useContext(AlertContext)
+    // const { show } = useContext(AlertContext)
 
     const formik = useFormik({
         initialValues: {
@@ -67,11 +69,26 @@ export const Reg = () => {
     const { handleSubmit, handleChange, handleBlur, isSubmitting, errors, touched, values } = formik
 
     const onRegister = async (email, password, username) => {
-        try {
-            firebase.register(email, password, username)
-        } catch (e) {
-            show('Что-то пошло не так!', 'success')
-        }
+        axios.defaults.xsrfHeaderName = "X-CSRFToken"
+        axios.defaults.xsrfCookieName = 'csrftoken'
+        // $httpProvider.defaults.xsrfCookieName = 'csrftoken';
+        // $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
+        // try {
+            // firebase.register(email, password, username)
+            // const response = axios.post("http://localhost:8000/account/register", {email, password, username}, {credentials: true})
+            // console.log(response.data)
+            axios.post("http://localhost:8000/account/register", {
+                email, password, username
+              })
+              .then((response) => {
+                console.log(response);
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        // } catch (e) {
+            // show('Что-то пошло не так!', 'success')
+        // }
     }
 
     return (
@@ -153,6 +170,7 @@ export const Reg = () => {
                             onBlur={handleBlur}
                         />
                     </Form.Item>
+                    {/* <CSRFToken /> */}
                     <Form.Item>
                         <Button type="primary" htmlType="submit" disabled={isSubmitting}>
                             Зарегистрироваться

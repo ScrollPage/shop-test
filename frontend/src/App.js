@@ -9,6 +9,9 @@ import { ItemsState } from './context/items/ItemsState'
 import { BasketState } from './context/basket/BasketState';
 import { AuthState } from './context/auth/AuthState'
 
+// import setGlobalCSRF from './helpers/setGlobalCSRF';
+
+// setGlobalCSRF(window.__csrf_token);
 
 export function App() {
     useEffect(() => {

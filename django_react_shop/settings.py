@@ -132,13 +132,37 @@ MEDIA_URL = "/images/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "frontend/static/frontend/images/")
 
 APPEND_SLASH=False
-# CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOW_CREDENTIALS = True
+
 CORS_ORIGIN_WHITELIST = [
-    # 'http://localhost:3000',
-    # 'http://localhost:8000',
     'http://localhost:8080'
 ]
+
+CSRF_COOKIE_SECURE = True
+
+# CORS_ALLOW_METHODS = [
+#     'DELETE',
+#     'GET',
+#     'OPTIONS',
+#     'PATCH',
+#     'POST',
+#     'PUT',
+# ]
+
+# CORS_ALLOW_HEADERS = [
+#     'accept',
+#     'accept-encoding',
+#     'authorization',
+#     'content-type',
+#     'dnt',
+#     'origin',
+#     'user-agent',
+#     'x-csrftoken',
+#     'x-requested-with',
+# ]
+
+# CSRF_TRUSTED_ORIGINS = [
+    # 'localhost:8080',
+# ]
 
 INTERNAL_IPS = ['127.0.0.1', 'localhost']
 
