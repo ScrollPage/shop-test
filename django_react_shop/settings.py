@@ -42,8 +42,17 @@ INSTALLED_APPS = [
     'frontend',
     'corsheaders',
     'debug_toolbar',
-    'account.apps.AccountConfig'
+    'account.apps.AccountConfig',
+
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+    ]
+}
+
+AUTH_USER_MODEL = 'account.Account'
 
 MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
