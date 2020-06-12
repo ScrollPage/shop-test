@@ -1,4 +1,5 @@
 from django.db import models
+<<<<<<< HEAD
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -38,6 +39,9 @@ class MyAccountManager(BaseUserManager):
 
         return user
 
+=======
+from django.contrib.auth.models import AbstractBaseUser
+>>>>>>> parent of 9bd7782b... что-то там
 
 
 class Account(AbstractBaseUser):
@@ -46,6 +50,7 @@ class Account(AbstractBaseUser):
     date_joined = models.DateTimeField(verbose_name = "date joined", auto_now_add = True)
     last_login = models.DateTimeField(verbose_name = "last_login", auto_now = True)
     is_admin = models.BooleanField(default = False)
+<<<<<<< HEAD
     is_staff = models.BooleanField(default = False)
     is_superuser = models.BooleanField(default = False)
     avatar = models.ImageField(upload_to="user_avatars/%Y/%m/%d", blank=True)
@@ -59,14 +64,26 @@ class Account(AbstractBaseUser):
     def __str__(self):
         return self.email
 
+=======
+    avatar = models.ImageField(upload_to="user_avatars/%Y/%m/%d", blank=True)
+    is_active = models.BooleanField(default = False)
+
+>>>>>>> parent of 9bd7782b... что-то там
     def get_url(self):
         try:
             return self.avatar.url
         except ValueError:
             return None
 
+<<<<<<< HEAD
 
 @receiver(post_save, sender = settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance = None, created = False, **kwargs):
     if created:
         Token.objects.create(user = instance)
+=======
+    def __init__(self, email, username, admin = False):
+        self.email = email
+        self.username = username
+        self.is_admin = admin
+>>>>>>> parent of 9bd7782b... что-то там
