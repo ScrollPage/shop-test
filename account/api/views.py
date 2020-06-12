@@ -12,6 +12,10 @@ class RegistrationView(View):
         if serializer.is_valid():
             account = serializer.save()
             data["response"] = "Successfully created a new user!"
+            data['email'] = account.email
+            data['username'] = account.username
+        else:
+            data = serializer.errors
         
         return Response(data)
 
