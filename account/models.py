@@ -15,8 +15,3 @@ class Account(AbstractBaseUser):
             return self.avatar.url
         except ValueError:
             return None
-
-    def __init__(self, email, username, admin = False):
-        self.email = email
-        self.username = username
-        self.is_admin = admin

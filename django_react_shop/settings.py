@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/2.1/howto/deploymen..
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'cvx&ylb92=6se=4=cbf=l53hodgscfo@g&bi(7yy9fy+vgb!yk'
@@ -55,7 +55,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-    # 'django.middleware.common.CommonMiddleware'
 ]
 
 ROOT_URLCONF = 'django_react_shop.urls'
@@ -63,7 +62,7 @@ ROOT_URLCONF = 'django_react_shop.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [], 
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -79,8 +78,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'django_react_shop.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
     'default': {
@@ -89,9 +86,6 @@ DATABASES = {
     }
 }
 
-
-# Password validation
-# https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -123,47 +117,14 @@ USE_L10N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
 
 MEDIA_URL = "/images/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "frontend/static/frontend/images/")
 
-APPEND_SLASH=False
+APPEND_SLASH = False
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:8080'
 ]
-
-CSRF_COOKIE_SECURE = True
-
-# CORS_ALLOW_METHODS = [
-#     'DELETE',
-#     'GET',
-#     'OPTIONS',
-#     'PATCH',
-#     'POST',
-#     'PUT',
-# ]
-
-# CORS_ALLOW_HEADERS = [
-#     'accept',
-#     'accept-encoding',
-#     'authorization',
-#     'content-type',
-#     'dnt',
-#     'origin',
-#     'user-agent',
-#     'x-csrftoken',
-#     'x-requested-with',
-# ]
-
-# CSRF_TRUSTED_ORIGINS = [
-    # 'localhost:8080',
-# ]
-
-INTERNAL_IPS = ['127.0.0.1', 'localhost']
-
- 
