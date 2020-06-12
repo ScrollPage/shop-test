@@ -3,6 +3,7 @@ from rest_framework import generics
 from django.views import View
 from rest_framework.response import Response
 from account.api.serializers import RegistrationSerializer
+from rest_framework.authtoken.models import Token
 
 class RegistrationView(View):
 
@@ -14,6 +15,8 @@ class RegistrationView(View):
             data["response"] = "Successfully created a new user!"
             data['email'] = account.email
             data['username'] = account.username
+            token = Token.get(user = account).key
+            data['token'] = token
         else:
             data = serializer.errors
         
