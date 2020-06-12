@@ -15,8 +15,6 @@ class RegistrationView(View):
             data["response"] = "Successfully created a new user!"
             data['email'] = account.email
             data['username'] = account.username
-            token = Token.get(user = account).key
-            data['token'] = token
         else:
             data = serializer.errors
         
